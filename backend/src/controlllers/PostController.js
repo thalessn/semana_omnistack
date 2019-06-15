@@ -16,22 +16,33 @@ module.exports = {
        const { author, place, description, hashtags } = req.body;
        //variável contendo o nome do arquivo vindo na requisição
        const { filename: image} = req.file;
+
+       //Alterar a extensão da imagem de PNG para JPG
+       const [name] = image.split('.');
+       const FileName = `${name}.jpg`;
        
+       //Reduz o tamanho da imagem a ser salva
         await sharp(req.file.path)
         .resize(500)
         .jpeg({quality: 70})
         .toFile(
-            path.resolve(req.file.destination, 'resized', image)
+            path.resolve(req.file.destination, 'resized', FileName)
         )
 
-
+       //Apaga a imagem original enviado pelo usuário e deixa somente imagem compactado na pasta resized
+       fs.unlinkSync(req.file.path);
+               
        const post = await Post.create({
            author,
            place,
            description,
            hashtags,
-           image,
+           image: FileName,
        });
-        return res.json(post);
+
+       //Avisa para o websocket que foi cadastrado um novo post
+       req.io.emit('post', post);
+
+       return res.json(post);
     }
 };
