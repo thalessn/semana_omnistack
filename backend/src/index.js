@@ -34,6 +34,6 @@ const mongoose = require('mongoose');
 app.use(routes);
  
 //Obs: tem que utilizar a variável 'serve' ao invés de app. Pois é o servidor http criado.
-server.listen(3003);
+server.listen(3004);
 
  

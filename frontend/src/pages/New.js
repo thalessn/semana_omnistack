@@ -14,7 +14,6 @@ class New extends Component {
 
     handleSubmit =  async e => {
         e.preventDefault();
-        console.log(this.state)
 
         const data = new FormData();
 

@@ -24,12 +24,12 @@ class Feed extends Component {
     }
 
     registerToSocket = () => {
-        const socket = io('http://localhost:3003');
+        const socket = io('http://localhost:3004');
 
         //post,like
 
         socket.on('post', newPost => {
-            this.setState({ feed: [ newPost, ... this.state.feed] }); //... operador spread para inserir os post anteriores
+            this.setState({ feed: [ newPost, ...this.state.feed] }); //... operador spread para inserir os post anteriores
         })
 
         socket.on('like', likedPost => {
@@ -59,7 +59,7 @@ class Feed extends Component {
                         <img src={more} alt="Mais"/>
                         </header> 
     
-                        <img src={`http://localhost:3003/files/${post.image}`} alt=""/>
+                        <img src={`http://localhost:3004/files/${post.image}`} alt=""/>
                     
                         <footer>
                             <div className="actions">
