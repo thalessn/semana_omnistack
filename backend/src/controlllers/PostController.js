@@ -7,7 +7,7 @@ module.exports = {
     async index(req, res){
         //O simbolo menos antes da palavra createdAt
         //é utilizado para ordenar de forma inversa.
-        const posts = await Post.find().sort('-createAt');
+        const posts = await Post.find().sort('-createdAt');
 
         return res.json(posts);
     },
